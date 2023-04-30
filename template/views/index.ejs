@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Recipe Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        /* background-color: #f7f7f7; */
+        /* background: url(''); */
+        
+        
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 10em auto;
+        padding: 20px;
+        /* background-color: #fff; */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      input[type="text"],
+	  input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Food Recipe Form</h1>
+      <form method="POST" action="/saveRecipe">
+        <label for="recipe-name">Recipe Name:</label>
+        <input type="text" id="recipe-name" name="recipename" required />
+
+        <label for="ingredients">Ingredients:</label>
+        <textarea id="ingredients" name="ingredients" required></textarea>
+
+        <label for="instructions">Instructions:</label>
+        <textarea id="instructions" name="instructions" required></textarea>
+
+        <label for="cooking-time">Cooking Time:</label>
+        <input
+          type="number"
+          id="cooking-time"
+          name="cookTime"
+          placeholder="e.g. 30 minutes"
+          required
+        />
+
+        <label for="preparation-time">Preparation Time:</label>
+        <input
+          type="number"
+          id="preparation-time"
+          name="prepTime"
+          placeholder="e.g. 15 minutes"
+          required
+        />
+
+        <label for="servings">Servings:</label>
+        <select id="servings" name="servings" required>
+          <option value="">Select servings</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10+">10+</option>
+        </select>
+        <!-- <img src="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg" height="500" width="500"> -->
+
+        <input type="submit" value="Submit" />
+	</form>
+  </div>
+	</body>
+  </html>

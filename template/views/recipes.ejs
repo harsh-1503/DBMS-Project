@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+     table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+thead {
+  background-color: #333;
+  color: #fff;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+td:first-child,
+th:first-child {
+  width: 20%;
+}
+
+td:nth-child(2),
+th:nth-child(2) {
+  width: 30%;
+}
+
+td:last-child,
+th:last-child {
+  width: 10%;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Recipe Name</th>
+            <th>Ingredients</th>
+            <th>Instructions</th>
+            <th>Cooking Time</th>
+            <th>Prepartion Time</th>
+            <th>Servings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let count = 0; %> <% for (const datas of data) {
+             %>
+          
+          <tr>
+            <td><%= datas[0] %></td>
+          <td><%= datas[1] %></td>
+          <td><%= datas[2] %></td>
+          <td><%= datas[3] %></td>
+          <td><%= datas[4] %></td>
+          <td><%= datas[5] %></td>
+          </tr>
+            <!-- <br> -->
+          <% count++; %> <% }%>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
