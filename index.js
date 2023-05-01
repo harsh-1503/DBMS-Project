@@ -38,71 +38,81 @@ app.post("/saveRecipe", async (req, res) => {
     });
 
     const data = await cons.execute(`SELECT * FROM foodrecipe`);
-
+    console.log(data);
     console.log(data.rows);
     console.log("Connected Successfully");
     // console.log(req);
-    res.redirect('saveRecipe')
+    // res.redirect('saveRecipe')
     // console.log(name+" "+email+" "+password)
   } catch (error) {
     console.log("Oracle not connected");
     console.log(error);
     return;
-  }
+  } 
 
   try {
+    const id =await Math.round(Math.random()*1000);
     const addRecipe = await cons.execute(
       `INSERT INTO foodrecipe
-        VALUES (:recipename,:ingredients,:instructions,:prepTime,:cookTime,:servings)`,
-      { recipename, ingredients, instructions, cookTime, prepTime, servings }
+        VALUES (:id,:recipename,:ingredients,:instructions,:prepTime,:cookTime,:servings)`,
+      {id ,recipename, ingredients, instructions, cookTime, prepTime, servings }
     );
     await cons.commit();
     console.log("Recipe added Successfully");
     console.log(addRecipe);
+    res.redirect('saveRecipe')
     // alert('Recipe Added Successfully')
   } catch (error) {
     console.log("Recipe not added:" + error);
   }
 });
 
+app.get('/saveRecipe', async (req, res) => {
+  // console.log(result.rows)
+  let connection;
+  try {
+    connection = await oracledb.getConnection({
+      user: process.env.USER,
+      password: process.env.PASS,
+      connectString: process.env.CONNECT_STRING,
+    });
+
+    const result = await  connection.execute('SELECT * FROM foodrecipe ORDER BY id');
+    console.log(result)
+    
+    res.render('recipes', { data: result.rows }); 
+  } catch (error) {
+    console.log(error)
+  }
+});
 
 
+app.delete('/saveRecipe/:id',async (req,res)=>{
+  let connect;
+  try {
+    connect = await oracledb.getConnection({
+      user: process.env.USER,
+      password: process.env.PASS,
+      connectString: process.env.CONNECT_STRING,
+    });
+    // alert('API CALLED')\       
+    console.log(req.params);
+    console.log('Hello chutiye');
+    const result = await connect.execute(`DELETE  FROM foodrecipe WHERE id='${req.params.id}'`);
+    connect.commit();
+    console.log(result)
+    
+    // res.redirect('saveRecipe'); 
+  } catch (error) {  
+    console.log(error)
+  }
+})
+
+// const delete = document.
 // Set the view engine to EJS
 // app.set('view engine', 'ejs');
 
 // Connect to the OracleDB
-oracledb.getConnection(
-  {
-    user: process.env.USER,
-    password: process.env.PASS,
-    connectString: process.env.CONNECT_STRING,
-  },
-  (err, connection) => {
-    if (err) {
-      console.error(err.message);
-      return;
-    }
-
-
-    const sql = `SELECT * FROM foodrecipe`;
-
-
-    connection.execute(sql, [], (err, result) => {
-      if (err) {
-        console.error(err.message);
-        return;
-      }
-
-
-      connection.release();
-
-      app.get('/saveRecipe', (req, res) => {
-        // console.log(result.rows)
-        res.render('recipes', { data: result.rows });
-      });
-    });
-  }
-);
 
 
 app.listen(port, () => {
